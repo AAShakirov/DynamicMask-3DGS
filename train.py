@@ -118,11 +118,13 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
 
         gt_image = viewpoint_cam.original_image.cuda()
         # stratega A: multiply images on mask (1 - background, 0 - object) before calculate loss 
-        mask = viewpoint_cam.mask.cuda()
+        mask = torch.from_numpy(viewpoint_cam.mask).float().cuda()
         image = image * mask
         gt_image = gt_image * mask
         print(f'chack max mask value (must be 1): {mask.max() = }')
         print(f'image {viewpoint_cam.image_path} | {mask[0][0] = }')
+
+        # check saize!!!
         
         # Loss
         Ll1 = l1_loss(image, gt_image)
