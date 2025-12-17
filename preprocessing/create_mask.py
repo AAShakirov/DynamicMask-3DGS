@@ -1,5 +1,7 @@
 import os
+import sys
 from typing import Tuple
+from argparse import ArgumentParser
 
 import cv2
 import numpy as np
@@ -43,6 +45,9 @@ def segmentate(dataset_dir_path: str, save_png: bool = False):
     model = YOLO("yolo11n-seg.pt")
 
     for image_path in image_paths:
+        if 'mask' in image_path:
+            print(f'{image_path} already exisit! Continue')
+            continue
         print(image_path)
         results, h, w = get_segmentator_predicts(model, image_path)
         object_mask = get_mask(results, h, w)
@@ -51,4 +56,8 @@ def segmentate(dataset_dir_path: str, save_png: bool = False):
             cv2.imwrite(f'{image_path.split('.')[0]}_mask.png', object_mask)
 
 if __name__ == '__main__':
-    segmentate('dataset', save_png=False) # set save_png=True for debug
+    parser = ArgumentParser(description="Training script parameters")
+    parser.add_argument('--dataset_dir_path', type=str, default="/images")
+    parser.add_argument('--save_png', type=bool, default=False)
+    args = parser.parse_args(sys.argv[1:])
+    segmentate(args.dataset_dir_path, args.save_png) # set save_png=True for debug
