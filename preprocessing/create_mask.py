@@ -20,23 +20,21 @@ def get_segmentator_predicts(model: YOLO, image_path: str) -> Tuple[list, int, i
     
     results = model.predict(
         source=image_origin,
-        classes=[0, 2],        # peaple and cars
+        classes=[0, 1, 2],        # person, bycucle, car
         conf=0.25
     )
     return results, h, w
 
 def get_mask(results: list, h: int, w: int):
-    object_mask = np.zeros((h, w), dtype=np.uint8)
+    object_mask = np.full((h, w), 255, dtype=np.uint8)
     for r in results:
         if r.boxes is not None and len(r.boxes) > 0:            
             if r.masks is not None:
                 masks = r.masks.xy
                 
                 for mask in masks:
-                    obj_mask = np.zeros((h, w), np.uint8)
                     mask_points = mask.astype(np.int32).reshape(-1, 1, 2)
-                    cv2.drawContours(obj_mask, [mask_points], -1, 255, cv2.FILLED)
-                    object_mask = cv2.bitwise_or(object_mask, obj_mask)
+                    cv2.fillPoly(object_mask, [mask_points], 0)
 
     return object_mask
 
