@@ -41,11 +41,11 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
 
 ## GIF
 
-Animation of original Gaussian Splatting assets/3DGS-original-defects-optimize.gif
+![original Gaussian Splatting] (assets/3DGS-original-defects-optimize.gif)
 
-Animation of Gaussian Splatting modified for strategy A assets/3DGS-StrategyA-defects-optimize.gif
+![Gaussian Splatting modified A] (assets/3DGS-StrategyA-defects-optimize.gif)
 
-Animation of Gaussian Splatting modified for strategy B assets/3DGS-StrategyB-defects-optimize.gif
+![Gaussian Splatting modified B] (assets/3DGS-StrategyB-defects-optimize.gif)
 
 Link for Animation of original Gaussian Splatting https://drive.google.com/file/d/1kqp4lyJWO0o0oVZn_5GsjTuTIpB-rPiW/view?usp=sharing
 
