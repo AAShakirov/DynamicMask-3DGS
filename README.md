@@ -38,3 +38,7 @@ Original notebook (with dependency bug fix) https://colab.research.google.com/dr
 Notebook for strategy A https://colab.research.google.com/drive/1l8ugB-nEF44WNiiXSUe2vgcoSYLZkc7g?usp=sharing
 
 Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6QabxXQ6i6tQTwzZrtyL6?usp=sharing
+
+## GIF
+
+Animation for original Gaussian Splatting https://drive.google.com/file/d/118x5c0Im00gAsGJvgjnBB-UoyomvtmZz/view?usp=sharing
