@@ -41,4 +41,4 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
 
 ## GIF
 
-Animation for original Gaussian Splatting https://drive.google.com/file/d/118x5c0Im00gAsGJvgjnBB-UoyomvtmZz/view?usp=sharing
+Animation for original Gaussian Splatting [https://drive.google.com/file/d/118x5c0Im00gAsGJvgjnBB-UoyomvtmZz/view?usp=sharing](https://drive.google.com/file/d/1kqp4lyJWO0o0oVZn_5GsjTuTIpB-rPiW/view?usp=sharing)
