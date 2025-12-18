@@ -59,12 +59,27 @@ def loadCam(args, id, cam_info, resolution_scale, is_nerf_synthetic, is_test_dat
 
         scale = float(global_down) * float(resolution_scale)
         resolution = (int(orig_w / scale), int(orig_h / scale))
+    
+    # Strategy B: загрузка маски динамических объектов
+    dynamic_mask = None
+    if cam_info.mask_path is not None and args.use_strategy_b:
+        try:
+            mask_array = np.load(cam_info.mask_path)
+            # Изменяем размер маски под разрешение камеры (если нужно)
+            if mask_array.shape[:2] != (resolution[1], resolution[0]):
+                mask_array = cv2.resize(mask_array, resolution, interpolation=cv2.INTER_NEAREST)
+            import torch
+            dynamic_mask = torch.from_numpy(mask_array).float().cuda()
+        except Exception as e:
+            print(f"[Warning] Failed to load mask for {cam_info.image_name}: {e}")
+            dynamic_mask = None
 
     return Camera(resolution, colmap_id=cam_info.uid, R=cam_info.R, T=cam_info.T, 
                   FoVx=cam_info.FovX, FoVy=cam_info.FovY, depth_params=cam_info.depth_params,
                   image=image, invdepthmap=invdepthmap,
                   image_name=cam_info.image_name, uid=id, data_device=args.data_device,
-                  train_test_exp=args.train_test_exp, is_test_dataset=is_test_dataset, is_test_view=cam_info.is_test)
+                  train_test_exp=args.train_test_exp, is_test_dataset=is_test_dataset, is_test_view=cam_info.is_test,
+                  dynamic_mask=dynamic_mask)
 
 def cameraList_from_camInfos(cam_infos, resolution_scale, args, is_nerf_synthetic, is_test_dataset):
     camera_list = []
