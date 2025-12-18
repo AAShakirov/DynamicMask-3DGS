@@ -42,7 +42,7 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
 ## GIF
 <table>
   <tr>
-    <td><img src="assets/3DGS-original-defects-optimize.gif" width="280" /></td>
+    <td><img src="assets/3DGS-original-defects-optimize-1.gif" width="280" /></td>
     <td><img src="assets/3DGS-StrategyA-defects-optimize.gif" width="280" /></td>
     <td><img src="assets/3DGS-StrategyB-defects-optimize.gif" width="280" /></td>
   </tr>
