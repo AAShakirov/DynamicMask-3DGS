@@ -22,6 +22,16 @@ from tqdm import tqdm
 from utils.image_utils import psnr
 from argparse import ArgumentParser, Namespace
 from arguments import ModelParams, PipelineParams, OptimizationParams
+
+# Strategy B imports
+from strategies.strategy_B_dynamic_filtering.sfm_filtering import filter_point_cloud_with_masks
+from strategies.strategy_B_dynamic_filtering.controlled_splitting import (
+    MaskAwareDensifier, densify_and_prune_masked
+)
+from strategies.strategy_B_dynamic_filtering.gaussian_pruning import (
+    DynamicGaussianTracker, prune_dynamic_gaussians, 
+    update_tracker_after_standard_pruning, AdaptivePruningScheduler
+)
 try:
     from torch.utils.tensorboard import SummaryWriter
     TENSORBOARD_FOUND = True
@@ -62,6 +72,45 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
 
     use_sparse_adam = opt.optimizer_type == "sparse_adam" and SPARSE_ADAM_AVAILABLE 
     depth_l1_weight = get_expon_lr_func(opt.depth_l1_weight_init, opt.depth_l1_weight_final, max_steps=opt.iterations)
+
+    # Strategy B: инициализация компонентов
+    mask_densifier = None
+    dynamic_tracker = None
+    prune_scheduler = None
+    
+    if dataset.use_strategy_b:
+        print("\n" + "="*80)
+        print("STRATEGY B: Dynamic Filtering Enabled")
+        print("="*80)
+        
+        # Подготавливаем маски для камер
+        train_cameras = scene.getTrainCameras()
+        masks_dict = {}
+        for cam in train_cameras:
+            if cam.dynamic_mask is not None:
+                masks_dict[cam.image_name] = cam.dynamic_mask
+        
+        if len(masks_dict) > 0:
+            print(f"[Strategy B] Loaded {len(masks_dict)} masks for training cameras")
+            
+            # Инициализируем компоненты стратегии Б
+            mask_densifier = MaskAwareDensifier(gaussians, train_cameras, masks_dict)
+            dynamic_tracker = DynamicGaussianTracker(
+                n_gaussians=gaussians.get_xyz.shape[0],
+                tracking_window=100
+            )
+            prune_scheduler = AdaptivePruningScheduler(
+                start_iter=3000,
+                end_iter=opt.densify_until_iter,
+                prune_interval=500,
+                initial_threshold=dataset.strategy_b_prune_threshold,
+                final_threshold=dataset.strategy_b_prune_threshold * 0.8
+            )
+            print(f"[Strategy B] MaskAwareDensifier initialized")
+            print(f"[Strategy B] DynamicGaussianTracker initialized")
+            print(f"[Strategy B] AdaptivePruningScheduler initialized")
+        else:
+            print("[Warning] Strategy B enabled but no masks found!")
 
     viewpoint_stack = scene.getTrainCameras().copy()
     viewpoint_indices = list(range(len(viewpoint_stack)))
@@ -165,13 +214,49 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 # Keep track of max radii in image-space for pruning
                 gaussians.max_radii2D[visibility_filter] = torch.max(gaussians.max_radii2D[visibility_filter], radii[visibility_filter])
                 gaussians.add_densification_stats(viewspace_point_tensor, visibility_filter)
+                
+                # Strategy B: обновляем трекер динамических гауссианов
+                if dynamic_tracker is not None and viewpoint_cam.dynamic_mask is not None:
+                    dynamic_tracker.update_dynamic_scores(
+                        gaussians, viewpoint_cam, viewpoint_cam.dynamic_mask
+                    )
 
                 if iteration > opt.densify_from_iter and iteration % opt.densification_interval == 0:
                     size_threshold = 20 if iteration > opt.opacity_reset_interval else None
-                    gaussians.densify_and_prune(opt.densify_grad_threshold, 0.005, scene.cameras_extent, size_threshold, radii)
+                    
+                    # Strategy B: используем модифицированную денсификацию
+                    if mask_densifier is not None:
+                        old_count = gaussians.get_xyz.shape[0]
+                        densify_and_prune_masked(
+                            gaussians, opt.densify_grad_threshold, 0.005, 
+                            scene.cameras_extent, size_threshold, radii,
+                            mask_densifier=mask_densifier,
+                            dynamic_threshold=dataset.strategy_b_densify_threshold
+                        )
+                        new_count = gaussians.get_xyz.shape[0]
+                        
+                        # Обновляем трекер после денсификации
+                        if dynamic_tracker is not None:
+                            dynamic_tracker.update_after_densification(old_count, new_count)
+                    else:
+                        # Стандартная денсификация
+                        gaussians.densify_and_prune(opt.densify_grad_threshold, 0.005, 
+                                                    scene.cameras_extent, size_threshold, radii)
+                
+                # Strategy B: периодическое удаление динамических гауссианов
+                if prune_scheduler is not None and prune_scheduler.should_prune(iteration):
+                    threshold = prune_scheduler.get_threshold(iteration)
+                    prune_dynamic_gaussians(
+                        gaussians, dynamic_tracker,
+                        prune_threshold=threshold,
+                        min_observations=dataset.strategy_b_prune_min_obs
+                    )
                 
                 if iteration % opt.opacity_reset_interval == 0 or (dataset.white_background and iteration == opt.densify_from_iter):
                     gaussians.reset_opacity()
+                    # Сбрасываем статистику трекера при сбросе прозрачности
+                    if dynamic_tracker is not None:
+                        dynamic_tracker.reset_statistics()
 
             # Optimizer step
             if iteration < opt.iterations:
