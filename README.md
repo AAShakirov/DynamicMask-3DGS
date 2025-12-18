@@ -36,3 +36,5 @@ Post-processing approach using a specialized inpainting network to fill regions 
 Original notebook (with dependency bug fix) https://colab.research.google.com/drive/1jHoQgsLjBGV77cueaWQrTHd8jeD8ARtX?usp=sharing
 
 Notebook for strategy A https://colab.research.google.com/drive/1l8ugB-nEF44WNiiXSUe2vgcoSYLZkc7g?usp=sharing
+
+Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6QabxXQ6i6tQTwzZrtyL6?usp=sharing
