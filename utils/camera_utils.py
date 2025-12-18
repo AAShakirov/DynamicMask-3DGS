@@ -19,7 +19,7 @@ WARNED = False
 
 def loadCam(args, id, cam_info, resolution_scale, is_nerf_synthetic, is_test_dataset):
     image = Image.open(cam_info.image_path)
-    mask = np.load(cam_info.image_path.split('.')[0] + '.npy')  # add: load mask
+    mask = np.load(cam_info.image_path.split('.')[0] + '_mask.npy')  # add: load mask
 
     if cam_info.depth_path != "":
         try:
