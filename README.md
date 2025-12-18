@@ -88,3 +88,9 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
     <td align="center">0.3215</td>
   </tr>
 </table>
+
+## Conclusion
+
+If the goal is to minimize mathematical error (for example, in scientific measurements, medicine), then method B is better. 
+
+If the goal is to obtain an image that looks as natural as possible and similar to the original to the human eye, then method A is better.
