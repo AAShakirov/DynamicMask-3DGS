@@ -122,7 +122,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         image = image * mask
         gt_image = gt_image * mask
         print(f'chack max mask value (must be 1): {mask.max() = }')
-        print(f'image {viewpoint_cam.name} | {mask[0][0] = }')
+        print(f'image {viewpoint_cam.image_name} | {mask[0][0] = }')
 
         # check saize!!!
         
