@@ -43,8 +43,8 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
 <table>
   <tr>
     <td><img src="assets/3DGS-original-defects-optimize-1.gif" width="280" /></td>
-    <td><img src="assets/3DGS-StrategyA-defects-optimize.gif" width="280" /></td>
-    <td><img src="assets/3DGS-StrategyB-defects-optimize.gif" width="280" /></td>
+    <td><img src="assets/3DGS-StrategyA-defects-optimize-1.gif" width="280" /></td>
+    <td><img src="assets/3DGS-StrategyB-defects-optimize-1.gif" width="280" /></td>
   </tr>
   <tr>
     <td align="center">Original Gaussian</td>
@@ -53,8 +53,8 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
   </tr>
 </table>
 
-Link for Animation of original Gaussian Splatting https://drive.google.com/file/d/1kqp4lyJWO0o0oVZn_5GsjTuTIpB-rPiW/view?usp=sharing
+[Link for Animation of original Gaussian Splatting](https://drive.google.com/file/d/1kqp4lyJWO0o0oVZn_5GsjTuTIpB-rPiW/view?usp=drive_link)
 
-Link for Animation of Gaussian Splatting modified for strategy A https://drive.google.com/file/d/1QEnhuI_C9Pl-h6ShukmLpsUSATO4kiC-/view?usp=sharing
+[Link for Animation of Gaussian Splatting modified for strategy A](https://drive.google.com/file/d/1L2_8ohsEKnm82Ca_QIbLiklidQHH2FOi/view?usp=drive_link)
 
-Link for Animation of Gaussian Splatting modified for strategy B https://drive.google.com/file/d/17DmBhzhH_jzXhLKuC3fktW_knHF57Coc/view?usp=sharing
+[Link for Animation of Gaussian Splatting modified for strategy B](https://drive.google.com/file/d/1_skuuS7fpmcJr9liHdSUGlkYZsFtqs_i/view?usp=drive_link)
