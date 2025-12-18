@@ -56,6 +56,12 @@ class ModelParams(ParamGroup):
         self.train_test_exp = False
         self.data_device = "cuda"
         self.eval = False
+        # Strategy B parameters
+        self.use_strategy_b = False
+        self.strategy_b_sfm_threshold = 0.5
+        self.strategy_b_densify_threshold = 0.3
+        self.strategy_b_prune_threshold = 0.7
+        self.strategy_b_prune_min_obs = 10
         super().__init__(parser, "Loading Parameters", sentinel)
 
     def extract(self, args):
