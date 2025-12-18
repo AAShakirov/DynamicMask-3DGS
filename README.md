@@ -53,6 +53,7 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
   </tr>
 </table>
 
+## Video
 [Link for Animation of original Gaussian Splatting](https://drive.google.com/file/d/1kqp4lyJWO0o0oVZn_5GsjTuTIpB-rPiW/view?usp=drive_link)
 
 [Link for Animation of Gaussian Splatting modified for strategy A](https://drive.google.com/file/d/1L2_8ohsEKnm82Ca_QIbLiklidQHH2FOi/view?usp=drive_link)
