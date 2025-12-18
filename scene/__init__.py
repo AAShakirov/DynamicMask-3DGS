@@ -80,7 +80,18 @@ class Scene:
                                                            "iteration_" + str(self.loaded_iter),
                                                            "point_cloud.ply"), args.train_test_exp)
         else:
-            self.gaussians.create_from_pcd(scene_info.point_cloud, scene_info.train_cameras, self.cameras_extent)
+            # Strategy B: фильтрация SfM точек перед инициализацией
+            point_cloud = scene_info.point_cloud
+            if args.use_strategy_b:
+                from strategies.strategy_B_dynamic_filtering.sfm_filtering import filter_point_cloud_with_masks
+                point_cloud = filter_point_cloud_with_masks(
+                    point_cloud, 
+                    scene_info.train_cameras,
+                    args.source_path,
+                    dynamic_threshold=args.strategy_b_sfm_threshold
+                )
+            
+            self.gaussians.create_from_pcd(point_cloud, scene_info.train_cameras, self.cameras_extent)
 
     def save(self, iteration):
         point_cloud_path = os.path.join(self.model_path, "point_cloud/iteration_{}".format(iteration))
