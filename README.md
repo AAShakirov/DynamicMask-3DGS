@@ -59,3 +59,32 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
 [Link for Animation of Gaussian Splatting modified for strategy A](https://drive.google.com/file/d/1L2_8ohsEKnm82Ca_QIbLiklidQHH2FOi/view?usp=drive_link)
 
 [Link for Animation of Gaussian Splatting modified for strategy B](https://drive.google.com/file/d/1_skuuS7fpmcJr9liHdSUGlkYZsFtqs_i/view?usp=drive_link)
+
+##Metric
+
+<table>
+  <tr>
+    <td align="center">Methods</td>
+    <td align="center">SSIM</td>
+    <td align="center">PSNR</td>
+    <td align="center">LPIPS</td>
+  </tr>
+  <tr>
+    <td align="center">Original</td>
+    <td align="center">0.7399</td>
+    <td align="center">18.3676</td>
+    <td align="center">0.3325</td>
+  </tr>
+    <tr>
+    <td align="center">Method A</td>
+    <td align="center">0.7989</td>
+    <td align="center">8.7507</td>
+    <td align="center">0.2675</td>
+  </tr>
+    <tr>
+    <td align="center">Method B</td>
+    <td align="center">0.7753</td>
+    <td align="center">20.0513</td>
+    <td align="center">0.3215</td>
+  </tr>
+</table>
