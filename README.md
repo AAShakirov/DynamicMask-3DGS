@@ -77,14 +77,14 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
   </tr>
     <tr>
     <td align="center">Method A</td>
-    <td align="center">***0.7989***</td>
+    <td align="center">0.7989</td>
     <td align="center">18.7507</td>
-    <td align="center">**0.2675**</td>
+    <td align="center">0.2675</td>
   </tr>
     <tr>
     <td align="center">Method B</td>
     <td align="center">0.7753</td>
-    <td align="center">**20.0513**</td>
+    <td align="center">20.0513</td>
     <td align="center">0.3215</td>
   </tr>
 </table>
