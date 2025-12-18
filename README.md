@@ -40,17 +40,18 @@ Notebook for strategy A https://colab.research.google.com/drive/1l8ugB-nEF44WNii
 Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6QabxXQ6i6tQTwzZrtyL6?usp=sharing
 
 ## GIF
-
-<div align="center">
-  <img src="assets/3DGS-original-defects-optimize.gif" width="280" /><br>
-  <em>Original Gaussian</em>
-  &nbsp;&nbsp;&nbsp;
-  <img src="assets/3DGS-StrategyA-defects-optimize.gif" width="280" /><br>
-  <em>Gaussin with metho A</em>
-  &nbsp;&nbsp;&nbsp;
-  <img src="assets/3DGS-StrategyB-defects-optimize.gif" width="280" /><br>
-  <em>Gaussin with metho A</em>
-</div>
+<table>
+  <tr>
+    <td><img src="assets/3DGS-original-defects-optimize.gif" width="280" /></td>
+    <td><img src="assets/3DGS-StrategyA-defects-optimize.gif" width="280" /></td>
+    <td><img src="assets/3DGS-StrategyB-defects-optimize.gif" width="280" /></td>
+  </tr>
+  <tr>
+    <td align="center">Original Gaussian</td>
+    <td align="center">Gaussin with method A</td>
+    <td align="center">Gaussin with method B</td>
+  </tr>
+</table>
 
 Link for Animation of original Gaussian Splatting https://drive.google.com/file/d/1kqp4lyJWO0o0oVZn_5GsjTuTIpB-rPiW/view?usp=sharing
 
