@@ -115,8 +115,16 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             alpha_mask = viewpoint_cam.alpha_mask.cuda()
             image *= alpha_mask
 
-        # Loss
+
         gt_image = viewpoint_cam.original_image.cuda()
+        # stratega A: multiply images on mask (1 - background, 0 - object) before calculate loss 
+        mask = torch.from_numpy(viewpoint_cam.mask).float().cuda()
+        mask = mask / 255.0     # convert array 0 255 to 0 1
+        image = image * mask
+        gt_image = gt_image * mask
+        # print(f'{mask.shape = } | {image.shape = } | {gt_image.shape = }')
+        
+        # Loss
         Ll1 = l1_loss(image, gt_image)
         if FUSED_SSIM_AVAILABLE:
             ssim_value = fused_ssim(image.unsqueeze(0), gt_image.unsqueeze(0))

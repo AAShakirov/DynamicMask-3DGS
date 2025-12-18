@@ -19,6 +19,7 @@ import cv2
 class Camera(nn.Module):
     def __init__(self, resolution, colmap_id, R, T, FoVx, FoVy, depth_params, image, invdepthmap,
                  image_name, uid,
+                 mask:np.array,
                  trans=np.array([0.0, 0.0, 0.0]), scale=1.0, data_device = "cuda",
                  train_test_exp = False, is_test_dataset = False, is_test_view = False
                  ):
@@ -41,6 +42,10 @@ class Camera(nn.Module):
 
         resized_image_rgb = PILtoTorch(image, resolution)
         gt_image = resized_image_rgb[:3, ...]
+        # add: mask
+        self.mask = mask
+
+        # this code for define objects on background in blender images
         self.alpha_mask = None
         if resized_image_rgb.shape[0] == 4:
             self.alpha_mask = resized_image_rgb[3:4, ...].to(self.data_device)
