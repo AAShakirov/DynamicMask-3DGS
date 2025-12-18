@@ -122,10 +122,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         mask = mask / 255.0     # convert array 0 255 to 0 1
         image = image * mask
         gt_image = gt_image * mask
-        print(f'chack max mask value (must be 1): {mask.max() = }')
-        print(f'image {viewpoint_cam.image_name} | {mask[0][0] = }')
-
-        # check saize!!!
+        print(f'{mask.shape = } | {image.shape = } | {gt_image.shape = }')
         
         # Loss
         Ll1 = l1_loss(image, gt_image)
