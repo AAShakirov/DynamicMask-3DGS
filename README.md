@@ -1,6 +1,6 @@
 # Overview
-
-This repository implements multiple strategies for handling dynamic objects in 3D Gaussian Splatting (3DGS). The project addresses a key limitation of the original 3DGS method — its inability to handle moving objects — through three distinct approaches that filter, adapt, or inpaint dynamic regions.
+This repository implements multiple strategies for handling dynamic objects in 3D Gaussian Splatting (3DGS). The project addresses a key limitation of the original 3DGS method — its inability to handle moving objects — through three distinct approaches that filter, adapt, or inpaint dynamic regions.\
+[Project Presentation](https://docs.google.com/presentation/d/1HwW4lar9bygGFCRijcWwV9zkDp8vtOkT/edit?usp=sharing)
 # Key Features
 
 Three comprehensive strategies for dynamic object handling
@@ -14,6 +14,15 @@ Automatic cleanup of Gaussians persistently marked as dynamic
 Post-hoc inpainting of removed dynamic regions
 
 Modular architecture allowing strategy combination
+# 3D Gaussian Splatting baseline
+The pipeline starts from sparse 3D points reconstructed using Structure-from-Motion (SfM). These points are initialized as 3D Gaussians, each parameterized by position, covariance, color, and opacity.  
+
+Given known camera parameters, the Gaussians are projected into the image plane and rendered using a differentiable tile-based rasterizer.  
+
+The rendering process is fully differentiable, allowing image reconstruction loss to be backpropagated to the Gaussian parameters. During optimization, an adaptive density control mechanism dynamically splits or removes Gaussians to better capture scene geometry and appearance.  
+
+This results in a compact, continuous, and efficiently renderable 3D scene representation optimized directly from multi-view images.
+
 
 # Implemented Strategies
 ## Strategy A: Static Scene Extraction
