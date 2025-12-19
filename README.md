@@ -1,8 +1,7 @@
 # Overview
-This repository implements multiple strategies for handling dynamic objects in 3D Gaussian Splatting (3DGS). The project addresses a key limitation of the original 3DGS method — its inability to handle moving objects — through three distinct approaches that filter, adapt, or inpaint dynamic regions.\
+This repository implements multiple strategies for handling dynamic objects in 3D Gaussian Splatting (3DGS). The project addresses a key limitation of the original 3DGS method — its inability to handle moving objects — through three distinct approaches that filter and adapt.\
 [Project Presentation](https://docs.google.com/presentation/d/1HwW4lar9bygGFCRijcWwV9zkDp8vtOkT/edit?usp=sharing)
 # Key Features
-
 Three comprehensive strategies for dynamic object handling
 
 Pre-training filtering of SfM points belonging to moving objects
@@ -14,7 +13,9 @@ Automatic cleanup of Gaussians persistently marked as dynamic
 Post-hoc inpainting of removed dynamic regions
 
 Modular architecture allowing strategy combination
+
 # 3D Gaussian Splatting baseline
+![Image description](assets/gaussiansplattingbaseline.png)
 The pipeline starts from sparse 3D points reconstructed using Structure-from-Motion (SfM). These points are initialized as 3D Gaussians, each parameterized by position, covariance, color, and opacity.  
 
 Given known camera parameters, the Gaussians are projected into the image plane and rendered using a differentiable tile-based rasterizer.  
@@ -23,6 +24,8 @@ The rendering process is fully differentiable, allowing image reconstruction los
 
 This results in a compact, continuous, and efficiently renderable 3D scene representation optimized directly from multi-view images.
 
+# Problem
+3D Gaussian Splatting (3DGS) is a state-of-the-art (SOTA) method for reconstructing photorealistic 3D scenes. However, it is highly vulnerable to dynamic objects—such as people or robots—present in the scene during multi-view capture. Their presence introduces severe visual artifacts in the reconstructed scene. Existing SOTA approaches for handling dynamic content (e.g., 4D-GS) address this limitation but suffer from significantly increased computational and modeling complexity.
 
 # Implemented Strategies
 ## Strategy A: Static Scene Extraction
