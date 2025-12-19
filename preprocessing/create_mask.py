@@ -50,9 +50,10 @@ def segmentate(dataset_dir_path: str, save_png: bool = False):
         print(image_path)
         results, h, w = get_segmentator_predicts(model, image_path)
         object_mask = get_mask(results, h, w)
-        np.save(f'{image_path.split('.')[0]}_mask.npy', object_mask)
+        base_path = os.path.splitext(image_path)[0]
+        np.save(f'{base_path}_mask.npy', object_mask)
         if save_png:
-            cv2.imwrite(f'{image_path.split('.')[0]}_mask.png', object_mask)
+            cv2.imwrite(f'{base_path}_mask.png', object_mask)
 
 if __name__ == '__main__':
     parser = ArgumentParser(description="Training script parameters")
