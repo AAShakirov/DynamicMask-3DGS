@@ -1,5 +1,7 @@
 import os
+import sys
 from typing import Tuple
+from argparse import ArgumentParser
 
 import cv2
 import numpy as np
@@ -54,3 +56,9 @@ def segmentate(dataset_dir_path: str, save_png: bool = False):
 
 if __name__ == '__main__':
     segmentate('dataset', save_png=False) # set save_png=True for debug
+
+if __name__ == '__main__':
+    parser = ArgumentParser(description="Training script parameters")
+    parser.add_argument('--dataset_dir_path', type=str, default="/images")
+    args = parser.parse_args(sys.argv[1:])
+    segmentate(args.dataset_dir_path) # set save_png=True for debug
