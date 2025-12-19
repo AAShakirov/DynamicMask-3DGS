@@ -55,9 +55,6 @@ def segmentate(dataset_dir_path: str, save_png: bool = False):
             cv2.imwrite(f'{image_path.split('.')[0]}_mask.png', object_mask)
 
 if __name__ == '__main__':
-    segmentate('dataset', save_png=False) # set save_png=True for debug
-
-if __name__ == '__main__':
     parser = ArgumentParser(description="Training script parameters")
     parser.add_argument('--dataset_dir_path', type=str, default="/images")
     args = parser.parse_args(sys.argv[1:])
