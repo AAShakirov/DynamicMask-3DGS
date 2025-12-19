@@ -36,6 +36,7 @@ class CameraInfo(NamedTuple):
     width: int
     height: int
     is_test: bool
+    # mask_path: str  # add: mask
 
 class SceneInfo(NamedTuple):
     point_cloud: BasicPointCloud
@@ -107,10 +108,12 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, depths_params, images_fold
 
         image_path = os.path.join(images_folder, extr.name)
         image_name = extr.name
+        # mask_path = image_path.split('.')[0] + '.npy'   # add: mask path
         depth_path = os.path.join(depths_folder, f"{extr.name[:-n_remove]}.png") if depths_folder != "" else ""
 
         cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, depth_params=depth_params,
                               image_path=image_path, image_name=image_name, depth_path=depth_path,
+                            #   mask_path=mask_path,      # add: return mask path
                               width=width, height=height, is_test=image_name in test_cam_names_list)
         cam_infos.append(cam_info)
 
