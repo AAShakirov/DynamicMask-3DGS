@@ -1,16 +1,14 @@
 # Overview
-This repository implements multiple strategies for handling dynamic objects in 3D Gaussian Splatting (3DGS). The project addresses a key limitation of the original 3DGS method — its inability to handle moving objects — through three distinct approaches that filter and adapt.\
+This repository implements multiple strategies for handling dynamic objects in 3D Gaussian Splatting (3DGS). The project addresses a key limitation of the original 3DGS method — its inability to handle moving objects — through two distinct approaches that filter and adapt.\
 [Project Presentation](https://docs.google.com/presentation/d/1HwW4lar9bygGFCRijcWwV9zkDp8vtOkT/edit?usp=sharing)
 # Key Features
-Three comprehensive strategies for dynamic object handling
+Two comprehensive strategies for dynamic object handling
 
 Pre-training filtering of SfM points belonging to moving objects
 
 Training-time adaptation preventing Gaussian creation in dynamic regions
 
 Automatic cleanup of Gaussians persistently marked as dynamic
-
-Post-hoc inpainting of removed dynamic regions
 
 Modular architecture allowing strategy combination
 
