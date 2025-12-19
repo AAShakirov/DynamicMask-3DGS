@@ -87,7 +87,7 @@ Notebook for strategy B https://colab.research.google.com/drive/1w3D69U4VF8a6Qab
 
 [Link for Animation of Gaussian Splatting modified for strategy B](https://drive.google.com/file/d/1_skuuS7fpmcJr9liHdSUGlkYZsFtqs_i/view?usp=drive_link)
 
-## Metric
+## Metrics
 
 <table>
   <tr>
