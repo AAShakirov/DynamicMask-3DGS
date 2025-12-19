@@ -6,6 +6,7 @@ Strategy B Component (a): SfM Point Filtering
 чтобы предотвратить создание гауссианов в этих областях.
 """
 
+import os
 import torch
 import numpy as np
 from typing import Dict, List
@@ -23,7 +24,6 @@ def load_masks_for_images(image_folder: str, image_names: List[str]) -> Dict[str
     Returns:
         Словарь {image_name: mask_array}
     """
-    import os
     
     masks = {}
     for image_name in image_names:
@@ -180,9 +180,7 @@ def filter_point_cloud_with_masks(point_cloud: BasicPointCloud,
     
     Returns:
         Отфильтрованное облако точек
-    """
-    import os
-    
+    """    
     # Загружаем маски
     image_folder = os.path.join(source_path, "images")
     if not os.path.exists(image_folder):
