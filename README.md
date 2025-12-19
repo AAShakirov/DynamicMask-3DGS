@@ -27,9 +27,36 @@ B2: Mask-Aware Gaussian Adaptation - Training-time prevention of Gaussian clonin
 
 B3: Dynamic Gaussian Removal - Lifecycle management removing persistently dynamic Gaussians
 
-## Strategy C: Background Inpainting
+## Git workflow
 
-Post-processing approach using a specialized inpainting network to fill regions where dynamic objects were removed.
+### Core Branches  
+*Long-lived, protected branches representing stable and integration states.*
+
+| Branch    | Purpose                                                                 |
+|-----------|-------------------------------------------------------------------------|
+| `main`    | Stable, production-ready code. Only updated via merges from `develop` after thorough testing and version tagging. |
+| `develop` | Primary integration branch. Contains the latest tested features, ready for release preparation. All feature work is merged here first. |
+
+---
+
+### Feature Branches  
+*Short-lived branches for new functionality or experiments. Always branched from and merged back into `develop`.*
+
+| Branch                     | Description                                                                 |
+|----------------------------|-----------------------------------------------------------------------------|
+| `feature/preprocessing`    | Implements dynamic object mask generation. Outputs masks in `.npy` (NumPy array) and `.png` (raster image) formats. |
+| `feature/strategy_A`       | Implements the first gradient-zeroing strategy for dynamic regions. |
+| `feature/strategy_B`       | Implements an alternative strategy for handling dynamic regions. |
+
+---
+
+### Maintenance Branches  
+*Branches for non-functional work: tooling, configuration, documentation, and infrastructure.*
+
+| Branch                | Description                                                |
+|-----------------------|------------------------------------------------------------|
+| `chore/setup`         | Initial repository setup: dependency management, build tooling, CI configuration, and project scaffolding. |
+| `chore/edit-readme`   |  Formatting and structuring of documentation in `README.md` — layout, sections, tables, code blocks, and Markdown styling. |
 
 ## Colab
 
